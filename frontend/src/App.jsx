@@ -124,7 +124,7 @@ export default function App() {
           fontWeight: '700',
           letterSpacing: '1px'
         }}>
-          BuilderAI
+          BuildAI
         </h1>
         <p style={{ 
           margin: '5px 0 0 0', 
@@ -189,7 +189,7 @@ export default function App() {
               <h4>Generated Code:</h4>
               <pre style={{ 
                 fontSize: '10px', 
-                backgroundColor: '#f8f9fa', 
+                backgroundColor: '#01050aff', 
                 padding: '10px', 
                 overflow: 'auto', 
                 maxHeight: '300px',
