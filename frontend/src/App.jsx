@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import './App.css'; // Import the new CSS file
 
 // Simple draggable component without external libraries
 function DraggableComponent({ id, content, onDragStart }) {
@@ -11,18 +12,7 @@ function DraggableComponent({ id, content, onDragStart }) {
     <div 
       draggable="true"
       onDragStart={handleDragStart}
-      style={{
-        padding: '12px',
-        marginBottom: '8px',
-        backgroundColor: '#e3f2fd',
-        border: '1px solid #90caf9',
-        borderRadius: '8px',
-        textAlign: 'center',
-        cursor: 'grab',
-        userSelect: 'none',
-        transition: 'all 0.2s ease',
-        fontWeight: '500'
-      }}
+      className="draggable-component"
       onMouseDown={(e) => e.currentTarget.style.transform = 'scale(0.98)'}
       onMouseUp={(e) => e.currentTarget.style.transform = 'scale(1)'}
     >
@@ -248,15 +238,15 @@ export default function App() {
 </head>
 <body>
   <header>
-    ${headerComponents || '    <!-- Header components will appear here -->'}
+    ${headerComponents || '    '}
   </header>
   
   <main>
-    ${bodyComponents || '    <!-- Body components will appear here -->'}
+    ${bodyComponents || '    '}
   </main>
   
   <footer>
-    ${footerComponents || '    <!-- Footer components will appear here -->'}
+    ${footerComponents || '    '}
   </footer>
 </body>
 </html>`;
@@ -315,81 +305,34 @@ export default function App() {
   };
 
   return (
-    <div style={{ fontFamily: 'Arial, sans-serif' }}>
+    <div className="app-container">
       {/* Header */}
-      <header style={{
-        backgroundColor: '#2c3e50',
-        color: 'white',
-        padding: '20px',
-        textAlign: 'center',
-        marginBottom: '0'
-      }}>
-        <h1 style={{ 
-          margin: '0', 
-          fontSize: '2.5rem',
-          fontWeight: '700',
-          letterSpacing: '1px'
-        }}>
+      <header className="app-header">
+        <h1 className="app-title">
           BuildAI
         </h1>
-        <p style={{ 
-          margin: '5px 0 0 0', 
-          fontSize: '1rem',
-          opacity: '0.9'
-        }}>
+        <p className="app-subtitle">
           Sequential Website Builder
         </p>
       </header>
 
-      <div style={{ 
-        display: 'flex', 
-        gap: '20px', 
-        padding: '20px', 
-        boxSizing: 'border-box', 
-        height: 'calc(100vh - 120px)'
-      }}>
+      <div className="main-content">
         {/* Sidebar */}
-        <div style={{ width: '280px', flexShrink: 0 }}>
+        <div className="sidebar">
           {/* Section Navigator */}
-          <div style={{
-            backgroundColor: '#f8f9fa',
-            padding: '15px',
-            borderRadius: '8px',
-            marginBottom: '20px',
-            border: '1px solid #dee2e6'
-          }}>
-            <h3 style={{ margin: '0 0 15px 0', textAlign: 'center' }}>
+          <div className="section-navigator">
+            <h3>
               Website Sections
             </h3>
             
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            <div className="section-buttons">
               <button 
                 onClick={() => setCurrentSection('header')}
-                style={{
-                  padding: '12px 16px',
-                  backgroundColor: currentSection === 'header' ? '#007bff' : '#e9ecef',
-                  color: currentSection === 'header' ? 'white' : '#495057',
-                  border: currentSection === 'header' ? '2px solid #007bff' : '2px solid #dee2e6',
-                  borderRadius: '6px',
-                  cursor: 'pointer',
-                  fontWeight: currentSection === 'header' ? '600' : '500',
-                  fontSize: '14px',
-                  transition: 'all 0.2s ease',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between'
-                }}
+                className={`section-btn ${currentSection === 'header' ? 'active' : ''}`}
               >
                 <span>📋 Header</span>
                 {droppedComponents.filter(c => c.section === 'header').length > 0 && (
-                  <span style={{
-                    backgroundColor: currentSection === 'header' ? 'rgba(255,255,255,0.2)' : '#28a745',
-                    color: currentSection === 'header' ? 'white' : 'white',
-                    borderRadius: '10px',
-                    padding: '2px 6px',
-                    fontSize: '10px',
-                    fontWeight: 'bold'
-                  }}>
+                  <span className={`section-count ${currentSection === 'header' ? 'active' : ''}`}>
                     {droppedComponents.filter(c => c.section === 'header').length}
                   </span>
                 )}
@@ -397,31 +340,11 @@ export default function App() {
               
               <button 
                 onClick={() => setCurrentSection('body')}
-                style={{
-                  padding: '12px 16px',
-                  backgroundColor: currentSection === 'body' ? '#6f42c1' : '#e9ecef',
-                  color: currentSection === 'body' ? 'white' : '#495057',
-                  border: currentSection === 'body' ? '2px solid #6f42c1' : '2px solid #dee2e6',
-                  borderRadius: '6px',
-                  cursor: 'pointer',
-                  fontWeight: currentSection === 'body' ? '600' : '500',
-                  fontSize: '14px',
-                  transition: 'all 0.2s ease',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between'
-                }}
+                className={`section-btn ${currentSection === 'body' ? 'active' : ''}`}
               >
                 <span>📝 Body</span>
                 {droppedComponents.filter(c => c.section === 'body').length > 0 && (
-                  <span style={{
-                    backgroundColor: currentSection === 'body' ? 'rgba(255,255,255,0.2)' : '#28a745',
-                    color: currentSection === 'body' ? 'white' : 'white',
-                    borderRadius: '10px',
-                    padding: '2px 6px',
-                    fontSize: '10px',
-                    fontWeight: 'bold'
-                  }}>
+                  <span className={`section-count ${currentSection === 'body' ? 'active' : ''}`}>
                     {droppedComponents.filter(c => c.section === 'body').length}
                   </span>
                 )}
@@ -429,31 +352,11 @@ export default function App() {
               
               <button 
                 onClick={() => setCurrentSection('footer')}
-                style={{
-                  padding: '12px 16px',
-                  backgroundColor: currentSection === 'footer' ? '#28a745' : '#e9ecef',
-                  color: currentSection === 'footer' ? 'white' : '#495057',
-                  border: currentSection === 'footer' ? '2px solid #28a745' : '2px solid #dee2e6',
-                  borderRadius: '6px',
-                  cursor: 'pointer',
-                  fontWeight: currentSection === 'footer' ? '600' : '500',
-                  fontSize: '14px',
-                  transition: 'all 0.2s ease',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between'
-                }}
+                className={`section-btn ${currentSection === 'footer' ? 'active' : ''}`}
               >
                 <span>🦶 Footer</span>
                 {droppedComponents.filter(c => c.section === 'footer').length > 0 && (
-                  <span style={{
-                    backgroundColor: currentSection === 'footer' ? 'rgba(255,255,255,0.2)' : '#28a745',
-                    color: currentSection === 'footer' ? 'white' : 'white',
-                    borderRadius: '10px',
-                    padding: '2px 6px',
-                    fontSize: '10px',
-                    fontWeight: 'bold'
-                  }}>
+                  <span className={`section-count ${currentSection === 'footer' ? 'active' : ''}`}>
                     {droppedComponents.filter(c => c.section === 'footer').length}
                   </span>
                 )}
@@ -464,63 +367,25 @@ export default function App() {
           {/* Add Component Button */}
           <button 
             onClick={handleAddComponent}
-            style={{ 
-              width: '100%',
-              padding: '15px',
-              fontSize: '16px',
-              backgroundColor: '#007bff',
-              color: 'white',
-              border: 'none',
-              borderRadius: '8px',
-              cursor: 'pointer',
-              marginBottom: '20px',
-              fontWeight: '600'
-            }}
+            className="add-component-btn"
           >
             + Add {currentSection.charAt(0).toUpperCase() + currentSection.slice(1)} Component
           </button>
 
           {/* Component Selector Modal */}
           {showComponentSelector && (
-            <div style={{
-              position: 'fixed',
-              top: '0',
-              left: '0',
-              right: '0',
-              bottom: '0',
-              backgroundColor: 'rgba(0,0,0,0.5)',
-              zIndex: 1000,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}>
-              <div style={{
-                backgroundColor: 'white',
-                padding: '20px',
-                borderRadius: '12px',
-                maxWidth: '400px',
-                width: '90%',
-                maxHeight: '80vh',
-                overflowY: 'auto'
-              }}>
-                <h3 style={{ margin: '0 0 20px 0' }}>
+            <div className="modal-overlay">
+              <div className="modal-content">
+                <h3>
                   Select {currentSection.charAt(0).toUpperCase() + currentSection.slice(1)} Component
                 </h3>
                 
-                <div style={{ display: 'grid', gap: '10px' }}>
+                <div className="component-list">
                   {getAvailableComponents().map(component => (
                     <button
                       key={component.id}
                       onClick={() => handleComponentSelect(component)}
-                      style={{
-                        padding: '12px',
-                        backgroundColor: getSectionColor(currentSection),
-                        border: '1px solid #ccc',
-                        borderRadius: '8px',
-                        cursor: 'pointer',
-                        textAlign: 'left',
-                        fontWeight: '500'
-                      }}
+                      className="component-select-btn"
                     >
                       {component.content}
                     </button>
@@ -529,16 +394,7 @@ export default function App() {
                 
                 <button
                   onClick={() => setShowComponentSelector(false)}
-                  style={{
-                    marginTop: '20px',
-                    padding: '10px 20px',
-                    backgroundColor: '#6c757d',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '4px',
-                    cursor: 'pointer',
-                    width: '100%'
-                  }}
+                  className="cancel-btn"
                 >
                   Cancel
                 </button>
@@ -549,55 +405,23 @@ export default function App() {
           {/* Action Buttons */}
           <button 
             onClick={handleGenerateCode} 
-            style={{ 
-              marginTop: '10px', 
-              padding: '12px', 
-              width: '100%', 
-              boxSizing: 'border-box',
-              backgroundColor: '#28a745',
-              color: 'white',
-              border: 'none',
-              borderRadius: '6px',
-              cursor: 'pointer',
-              fontWeight: '600'
-            }}
+            className="generate-code-btn"
           >
             Generate Website Code
           </button>
 
           <button 
             onClick={handleClearCanvas} 
-            style={{ 
-              marginTop: '10px', 
-              padding: '12px', 
-              width: '100%', 
-              boxSizing: 'border-box',
-              backgroundColor: '#dc3545',
-              color: 'white',
-              border: 'none',
-              borderRadius: '6px',
-              cursor: 'pointer',
-              fontWeight: '600'
-            }}
+            className="clear-canvas-btn"
           >
             Clear All
           </button>
           
           {/* Code Output */}
           {codeOutput && (
-            <div style={{ marginTop: '20px' }}>
+            <div className="code-output-container">
               <h4>Generated Code:</h4>
-              <pre style={{ 
-                fontSize: '10px', 
-                backgroundColor: '#1a1a1a', 
-                color: '#00ff00',
-                padding: '12px', 
-                overflow: 'auto', 
-                maxHeight: '300px',
-                border: '1px solid #333',
-                borderRadius: '6px',
-                whiteSpace: 'pre-wrap'
-              }}>
+              <pre className="code-output">
                 {codeOutput}
               </pre>
             </div>
@@ -610,69 +434,22 @@ export default function App() {
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
-          style={{ 
-            flex: 1,
-            height: '800px',
-            border: isDragOver ? '3px dashed #28a745' : '2px dashed #999', 
-            backgroundColor: isDragOver ? '#f8fff8' : '#ffffff',
-            position: 'relative',
-            transition: 'all 0.2s ease',
-            borderRadius: '12px',
-            overflow: 'hidden'
-          }}
+          className={`canvas ${isDragOver ? 'drag-over' : ''}`}
         >
           {/* Section Dividers */}
-          <div style={{ 
-            position: 'absolute', 
-            top: '0', 
-            left: '0', 
-            right: '0', 
-            height: '150px', 
-            backgroundColor: getSectionColor('header'),
-            opacity: '0.1',
-            borderBottom: '2px dashed #ccc'
-          }} />
-          <div style={{ 
-            position: 'absolute', 
-            top: '150px', 
-            left: '0', 
-            right: '0', 
-            height: '450px', 
-            backgroundColor: getSectionColor('body'),
-            opacity: '0.1',
-            borderBottom: '2px dashed #ccc'
-          }} />
-          <div style={{ 
-            position: 'absolute', 
-            top: '600px', 
-            left: '0', 
-            right: '0', 
-            bottom: '0', 
-            backgroundColor: getSectionColor('footer'),
-            opacity: '0.1'
-          }} />
+          <div className="section-divider header-divider" style={{ backgroundColor: getSectionColor('header') }} />
+          <div className="section-divider body-divider" style={{ backgroundColor: getSectionColor('body') }} />
+          <div className="section-divider footer-divider" style={{ backgroundColor: getSectionColor('footer') }} />
 
           {/* Section Labels */}
-          <div style={{ position: 'absolute', top: '10px', left: '10px', fontSize: '12px', color: '#666', fontWeight: 'bold' }}>HEADER</div>
-          <div style={{ position: 'absolute', top: '160px', left: '10px', fontSize: '12px', color: '#666', fontWeight: 'bold' }}>BODY</div>
-          <div style={{ position: 'absolute', top: '610px', left: '10px', fontSize: '12px', color: '#666', fontWeight: 'bold' }}>FOOTER</div>
+          <div className="section-label header-label">HEADER</div>
+          <div className="section-label body-label">BODY</div>
+          <div className="section-label footer-label">FOOTER</div>
 
           {droppedComponents.length === 0 && (
-            <div 
-              style={{
-                textAlign: 'center', 
-                color: '#6c757d', 
-                padding: '20px', 
-                position: 'absolute', 
-                top: '50%', 
-                left: '50%', 
-                transform: 'translate(-50%, -50%)', 
-                pointerEvents: 'none',
-                fontSize: '18px'
-              }}
-            >
+            <div className="canvas-placeholder">
               <div>🏗️ Start Building Your Website</div>
-              <div style={{ fontSize: '14px', marginTop: '10px' }}>
+              <div className="placeholder-text">
                 Begin with Header components, then move to Body and Footer
               </div>
             </div>
@@ -683,25 +460,15 @@ export default function App() {
             <div 
               key={comp.id} 
               onMouseDown={(e) => handleComponentMouseDown(e, comp)}
+              className={`dropped-component ${draggedComponent?.id === comp.id ? 'is-dragging' : ''}`}
               style={{ 
-                position: 'absolute', 
                 left: comp.position.x, 
                 top: comp.position.y, 
-                padding: '12px 16px 12px 12px', 
-                border: '2px solid #007bff', 
                 backgroundColor: getSectionColor(comp.section),
-                borderRadius: '8px',
-                boxShadow: draggedComponent?.id === comp.id 
-                  ? '0 8px 25px rgba(0,123,255,0.3)' 
-                  : '0 4px 12px rgba(0,123,255,0.15)',
-                cursor: 'grab',
-                fontWeight: '500',
-                minWidth: '120px',
-                userSelect: 'none',
-                transition: draggedComponent?.id === comp.id ? 'none' : 'all 0.2s ease',
                 zIndex: draggedComponent?.id === comp.id ? 1000 : 1,
-                transform: draggedComponent?.id === comp.id ? 'scale(1.05) rotate(2deg)' : 'scale(1)',
-                opacity: draggedComponent?.id === comp.id ? 0.8 : 1
+                opacity: draggedComponent?.id === comp.id ? 0.8 : 1,
+                transition: draggedComponent?.id === comp.id ? 'none' : 'all 0.2s ease',
+                transform: draggedComponent?.id === comp.id ? 'scale(1.05) rotate(2deg)' : 'scale(1)'
               }}
             >
               {/* Delete button */}
@@ -711,58 +478,20 @@ export default function App() {
                   handleDeleteComponent(comp.id);
                 }}
                 onMouseDown={(e) => e.stopPropagation()}
-                style={{
-                  position: 'absolute',
-                  top: '-8px',
-                  right: '-8px',
-                  width: '20px',
-                  height: '20px',
-                  borderRadius: '50%',
-                  backgroundColor: '#dc3545',
-                  color: 'white',
-                  border: 'none',
-                  cursor: 'pointer',
-                  fontSize: '12px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontWeight: 'bold',
-                  boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
-                  zIndex: 10
-                }}
+                className="delete-btn"
                 title="Delete component"
               >
                 ×
               </button>
               
               {/* Drag handle indicator */}
-              <div style={{
-                position: 'absolute',
-                top: '4px',
-                left: '4px',
-                width: '16px',
-                height: '16px',
-                cursor: 'grab',
-                opacity: 0.4,
-                fontSize: '10px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                backgroundColor: 'rgba(0,0,0,0.1)',
-                borderRadius: '3px'
-              }}>
+              <div className="drag-handle">
                 ⋮⋮
               </div>
               
-              <div style={{ marginLeft: '8px' }}>
+              <div className="component-content">
                 {comp.content}
-                <div style={{ 
-                  fontSize: '10px', 
-                  color: '#666', 
-                  marginTop: '4px',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.5px'
-                }}>
+                <div className="component-meta">
                   {comp.section} • {comp.type}
                 </div>
               </div>
@@ -770,16 +499,7 @@ export default function App() {
           ))}
 
           {/* Stats */}
-          <div style={{
-            position: 'absolute',
-            bottom: '15px',
-            right: '15px',
-            backgroundColor: 'rgba(0,0,0,0.8)',
-            color: 'white',
-            padding: '10px',
-            borderRadius: '6px',
-            fontSize: '12px'
-          }}>
+          <div className="stats-box">
             <div>Header: {droppedComponents.filter(c => c.section === 'header').length}</div>
             <div>Body: {droppedComponents.filter(c => c.section === 'body').length}</div>
             <div>Footer: {droppedComponents.filter(c => c.section === 'footer').length}</div>
